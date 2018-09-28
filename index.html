@@ -93,8 +93,8 @@ function renderButtons() {
         var rating = results[i].rating;
         var p = $("<p>").text("Rating: " + rating);    
           
-        var stateStill = results[i].images.fixed_height.url;
-        var stateAnimate = results[i].images.fixed_height_still.url;
+        var stateAnimate = results[i].images.fixed_height.url;
+        var stateStill = results[i].images.fixed_height_still.url;
         personImage.attr("src", stateAnimate);
         personImage.attr("data-state", "animate");
         personImage.attr("data-animate", stateAnimate);
@@ -105,22 +105,25 @@ function renderButtons() {
         
         // Show where the gifs appear
         $("#gifs-appear-here").prepend(gifDiv);
+      
+         // Animate
+        $(".gif").on("click", function () {
+          var state = $(this).attr("data-state");
+
+          if (state === "animate") {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", stateStill);
+          } else {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", stateAnimate);
+          }
+        });
+      
       }
         
     });
 
-    // Animate
-    $(".gif").on("click", function() {
-    var state = $(this).attr("data-state");
-
-    if (state === "animate") {
-      $(this).attr("src", $(this).attr("data-still"));
-      $(this).attr("data-state", stateStill);
-    } else {
-      $(this).attr("src", $(this).attr("data-animate"));
-      $(this).attr("data-state", stateAnimate);
-    }
-  });
+   
     
 
 });
